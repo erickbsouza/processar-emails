@@ -27,6 +27,9 @@ public class GmailService {
     @Value("${spring.mail.password}")
     private String password;
 
+    @Value("${spring.mail.host}")
+    private String host;
+
     public void checkForNewEmails() {
         Properties properties = new Properties();
         properties.put("mail.store.protocol", "imaps");
@@ -35,7 +38,7 @@ public class GmailService {
             // Conecta ao servidor de email usando IMAP com SSL
             Session emailSession = Session.getDefaultInstance(properties);
             Store store = emailSession.getStore();
-            store.connect("imap.gmail.com", username, password);
+            store.connect(host, username, password);
 
             // Acessa a pasta INBOX
             Folder inbox = store.getFolder("INBOX");
